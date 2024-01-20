@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('static/img/bg.jpg');
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(41, 2, 237, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .game-cell {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            border-radius: 15px;
+            transition: background 0.3s, transform 0.3s;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .game-cell:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .btn-custom {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .btn-custom:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.8); }
+            70% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .game-cell:active {
+            animation: pop 0.3s ease;
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            font-size: 1.5em;
+        }
+
+        .score {
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .alert:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .alert-info {
+            border-color: #17a2b8;
+        }
+
+        .alert-success {
+            border-color: #28a745;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            font-size: 1.2em;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tic Tac Toe</h1>
+        <div class="game-board">
+            {% for i in range(3) %}
+                {% for j in range(3) %}
+                    <div class="game-cell">
+                        {% if game[i][j] %}
+                            {{ game[i][j] }}
+                        {% else %}
+                            <a href="{{ url_for('play', row=i, col=j) }}" style="color: inherit; text-decoration: none;">Play</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a href="{{url_for('reset')}}" class="btn btn-custom">Reset Game</a>
+            <a href="{{url_for('set_mode', mode='singleplayer')}}" class="btn btn-custom">Single Player</a>
+            <a href="{{url_for('set_mode', mode='multiplayer')}}" class="btn btn-custom">Multiplayer</a>
+        </div>
+        <div class="scoreboard">
+            <div class="score">X: {{ score_X }}</div>
+            <div class="score">O: {{ score_O }}</div>
+        </div>
+        {% if draw %}
+            <div class="alert alert-info">Game Drawn</div>
+        {% endif %}
+        {% if winnerFound %}
+            <div class="alert alert-success">WINNER is {{winner}}</div>
+        {% endif %}
+        <footer class="footer">
+            MADE BY DINESH.P 🚀💻
+        </footer>
+    </div>
+</body>
+</html>
