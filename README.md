@@ -13,8 +13,8 @@ This is a simple web-based Tic Tac Toe game developed using Flask. It supports b
 
 1. **Clone the Repository:**
    ```bash
-   git clone [your-repository-url]
-   cd [repository-name]
+   git clone https://github.com/POTHUMAHANTHIDINESH/tic-tac-toe/tree/main
+   cd tic-tac-toe
    ```
 
 2. **Create a Virtual Environment (optional but recommended):**
